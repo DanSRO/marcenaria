@@ -11,7 +11,7 @@ class ServiceController extends Controller
 
     public function index()
     {
-        return response()->json(Service::where('is_published', true)->get(), 200);
+        return response()->json(Service::where('is_published', true)->paginate(10));
     }
 
     public function store(Request $request)

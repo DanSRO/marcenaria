@@ -11,7 +11,7 @@ class PostController extends Controller
 
     public function index()
     {
-        return Post::all();
+        return response()->json(Post::where('is_published', true)->paginate(10));
     }
 
     public function store(Request $request)
