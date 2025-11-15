@@ -16,15 +16,12 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name'=>'required|string|max:255',
-            'slug'=>'required|string|max:255|unique:services',
-            'description'=>'nullable|string',
-            'icon'=>'nullable|string|max:100',
-            'is_published'=>'boolean',
-        ]);
-        $service = Service::create($validated);
-        return response()->json($service, 201);
+        $service = Service::create($request->validate());
+        return response()->json([
+            'success' => true,
+            'message' => 'Serviço criado com sucesso.',
+            'data' => $service
+        ], 201);
     }
 
     public function show(Service $service)
@@ -34,15 +31,12 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
-        $validated = $request->validate([
-            'name'=>'sometimes|string|max:255',
-            'slug'=>'sometimes|string|max:255|unique:services',
-            'description'=>'nullable|string',
-            'icon'=>'nullable|string|max:100',
-            'is_published'=>'boolean',
-        ]);
-        $service->update($validated);
-        return response()->json($service, 200);
+        $service->update($request->validate());
+        return response()->json([
+            'success' => true,
+            'message' => 'Serviço atualizado com sucesso.',
+            'data' =>  $service
+        ], 200);
     }
 
     public function destroy(Service $service)

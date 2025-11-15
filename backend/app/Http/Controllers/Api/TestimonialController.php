@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TestimonialRequest;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
@@ -14,18 +15,14 @@ class TestimonialController extends Controller
         return response()->json(Testimonial::where('is_published', true)->paginate(10));
     }
 
-    public function store(Request $request)
+    public function store(TestimonialRequest $request)
     {
-        $validated = $request->validate([
-            'client_name'=>'required|string|max:255',
-            'localization'=>'nullable|string|max:255',
-            'text'=>'nullable|text|max:255',
-            'rating'=>'nullable|integer',
-            'photo_url'=>'nullable|string',
-            'is_published'=>'boolean',
-        ]);
-        $testimonial = Testimonial::create($validated);
-        return response()->json($testimonial, 201);
+        $testimonial = Testimonial::create($request->validate());
+        return response()->json([
+            'success' => true,
+            'message' => 'Testemunho criado com sucesso.',
+            'data' => $testimonial
+        ], 201);
     }
     
     public function show(Testimonial $testimonial)
@@ -35,17 +32,12 @@ class TestimonialController extends Controller
     
     public function update(Request $request, Testimonial $testimonial)
     {
-        $validated = $request->validate([
-            'client_name'=>'sometimes|string|max:255',
-            'localization'=>'sometimes|string|max:255',
-            'text'=>'sometimes|text|max:255',
-            'rating'=>'sometimes|integer',
-            'photo_url'=>'sometimes|string',
-            'is_published'=>'boolean',
-
-        ]);
-        $testimonial = Testimonial::update($validated);
-        return response()->json($testimonial, 201);
+        $testimonial = Testimonial::update($request->validate());
+        return response()->json([
+            'success' => true,
+            'message' => 'Testemunho atualizado com sucesso.',
+            'data' => $testimonial
+        ], 201);
     }
 
     public function destroy(Testimonial $testimonial)

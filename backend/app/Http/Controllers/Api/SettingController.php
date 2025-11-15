@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SettingRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -13,29 +14,29 @@ class SettingController extends Controller
         return response()->json(Setting::where('is_published', true)->get(), 200);
     }
 
-    public function store(Request $request)
+    public function store(SettingRequest $request)
     {
-        $validated = $request->validate([
-            'key'=>'required|string|max:100',
-            'value'=>'nullable|json',
-        ]);
-        $setting = Setting::create($validated);
-        return response()->json($setting, 200);
+        $setting = Setting::create($request->validate());
+        return response()->json([
+            'success' => true,
+            'message' => 'Configuração criada com sucesso.',
+            'data' => $setting
+        ], 200);
     }
 
     public function show(Setting $setting)
     {
         return response()->json($setting, 200);
     }
-
+    
     public function update(Request $request, Setting $setting)
     {
-        $validated = $request->validate([
-
-        ]);
-        $setting = Setting::update($validated);
-        return response()->json($setting, 201);
-
+        $setting = Setting::update($request->validate());
+        return response()->json([
+            'success' => true,
+            'message' => 'Configuração atualizada com sucesso.',
+            'data' => $setting
+        ], 201);
     }
 
     public function destroy(Setting $setting)

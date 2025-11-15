@@ -16,9 +16,10 @@ class ProjectController extends Controller
 
     public function store(ProjectRequest $request)
     {
-        $project = Project::create($request->validate());
+        $project = Project::create($request->validated());
         return response()->json([
             'success' => true,
+            'message' => 'Projeto criado com sucesso.',
             'data' => $project
         ], 201);
     }
@@ -30,9 +31,10 @@ class ProjectController extends Controller
 
     public function update(ProjectRequest $request, Project $project)
     {
-        $project->update($request->validate());
+        $project->update($request->validated());
         return response()->json([
             'success' => true,
+            'message' => 'Projeto atualizado com sucesso.',
             'data' => $project
         ], 200);
     }

@@ -16,4 +16,7 @@ class Project extends Model
         'gallery',
         'is_published',
     ];
+    protected $casts = [
+        'gallery' => 'array',
+    ];
 }
