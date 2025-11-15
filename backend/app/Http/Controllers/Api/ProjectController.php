@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -14,20 +14,13 @@ class ProjectController extends Controller
         return response()->json(Project::where('is_published', true)->paginate(10));
     }
 
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:projects',
-            'description' => 'nullable|string',
-            'category' => 'nullable|string|max:100',
-            'materials' => 'nullable|string|max:255',
-            'cover_image' => 'nullable|string',
-            'gallery' => 'nullable|json',
-            'is_published' => 'boolean', 
-        ]);
-        $project = Project::create($validated);
-        return response()->json($project, 201);
+        $project = Project::create($request->validate());
+        return response()->json([
+            'success' => true,
+            'data' => $project
+        ], 201);
     }
 
     public function show(Project $project)
@@ -35,20 +28,13 @@ class ProjectController extends Controller
         return response()->json($project, 200);
     }
 
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
-        $validated = $request->validate([
-            'title' => 'sometimes|string|max:255',
-            'slug' => 'sometimes|string|max:255|unique:projects,slug,' . $project->id,
-            'description' => 'nullable|string',
-            'category' => 'nullable|string|max:100',
-            'materials' => 'nullable|string|max:255',
-            'cover_image' => 'nullable|string',
-            'gallery' => 'nullable|json',
-            'is_published' => 'boolean',
-        ]);
-        $project->update($validated);
-        return response($project, 200);
+        $project->update($request->validate());
+        return response()->json([
+            'success' => true,
+            'data' => $project
+        ], 200);
     }
 
     public function destroy(Project $project)
