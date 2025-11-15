@@ -27,11 +27,16 @@ class Handler extends ExceptionHandler
                     'errors' => $e->errors(),
                 ], 422);
             }
-        }
-        if($e instanceof ModelNotFoundException){
+            if($e instanceof ModelNotFoundException){
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                ], 404);
+            }
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage(),
+                'message' => 'Erro interno no servidor',
+                'details' => $e->getMessage(),
             ], 500);
         }
         return parent::render($request, $e);
