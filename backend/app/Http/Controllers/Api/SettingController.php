@@ -5,18 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingRequest;
 use App\Models\Setting;
-use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
     public function index()
     {
-        return response()->json(Setting::where('is_published', true)->get(), 200);
+        return Setting::all();
     }
 
     public function store(SettingRequest $request)
     {
-        $setting = Setting::create($request->validate());
+        $setting = Setting::create($request->validated());
         return response()->json([
             'success' => true,
             'message' => 'Configuração criada com sucesso.',
@@ -29,9 +28,9 @@ class SettingController extends Controller
         return response()->json($setting, 200);
     }
     
-    public function update(Request $request, Setting $setting)
+    public function update(SettingRequest $request, Setting $setting)
     {
-        $setting = Setting::update($request->validate());
+        $setting->update($request->validated());
         return response()->json([
             'success' => true,
             'message' => 'Configuração atualizada com sucesso.',

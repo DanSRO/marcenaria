@@ -19,7 +19,7 @@ class TestimonialRequest extends FormRequest
         $rules = [
             'client_name'=>'required|string|max:255',
             'localization'=>'nullable|string|max:255',
-            'text'=>'nullable|text|max:255',
+            'text'=>'nullable|string|max:255',
             'rating'=>'nullable|integer',
             'photo_url'=>'nullable|string',
             'is_published'=>'boolean', 

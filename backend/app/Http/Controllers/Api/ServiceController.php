@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
-use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
@@ -14,9 +14,9 @@ class ServiceController extends Controller
         return response()->json(Service::where('is_published', true)->paginate(10));
     }
 
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
-        $service = Service::create($request->validate());
+        $service = Service::create($request->validated());
         return response()->json([
             'success' => true,
             'message' => 'Serviço criado com sucesso.',
@@ -29,9 +29,9 @@ class ServiceController extends Controller
         return response()->json($service, 200);
     }
 
-    public function update(Request $request, Service $service)
+    public function update(ServiceRequest $request, Service $service)
     {
-        $service->update($request->validate());
+        $service->update($request->validated());
         return response()->json([
             'success' => true,
             'message' => 'Serviço atualizado com sucesso.',

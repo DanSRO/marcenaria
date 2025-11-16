@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ServiceRequest extends FormRequest
 {
@@ -16,6 +17,7 @@ class ServiceRequest extends FormRequest
 
     public function rules(): array
     {
+        $serviceId = $this->route('service')?->id ?? null;
         $rules = [
             'name'=>'required|string|max:255',
             'slug'=>'required|string|max:255|unique:services',
@@ -25,7 +27,7 @@ class ServiceRequest extends FormRequest
         ];
         if($this->isMethod('put') || $this->isMethod('patch')){
             $rules['name']='sometimes|string|max:255';
-            $rules['slug']='sometimes|string|max:255|unique:services';
+            $rules['slug']=['sometimes','string','max:255', Rule::unique('services', 'slug')->ignore($serviceId),];
         }
         return $rules;
     }

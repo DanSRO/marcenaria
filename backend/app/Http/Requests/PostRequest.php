@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PostRequest extends FormRequest
 {
@@ -16,6 +17,7 @@ class PostRequest extends FormRequest
 
     public function rules(): array
     {
+        $postId = $this->route('post')?->id ?? null;
         $rules = [
             'title'=>'required|string|max:255',
             'slug'=>'required|string|max:255|unique:posts',
@@ -26,7 +28,8 @@ class PostRequest extends FormRequest
         ];
         if($this->isMethod('put') || $this->isMethod('patch')){
             $rules['title']='sometimes|string|max:255';
-            $rules['slug']='sometimes|string|max:255|unique:posts, slug,'.$this->route('post')->id;
+            $rules['slug']=['sometimes','string','max:255', Rule::unique('posts', 'slug')->ignore($postId),];
+            $rules['tags']='sometimes|string|max:255';
         }
         return $rules;
     }

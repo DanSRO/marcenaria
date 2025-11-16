@@ -18,7 +18,8 @@ class SettingRequest extends FormRequest
     {
         $rules = [
             'key'=>'required|string|max:100',
-            'value'=>'nullable|json',
+            'value'=>'nullable|array',
+            'value.*'=>'string|max:100',
         ];
         if($this->isMethod('put') || $this->isMethod('patch')){
             $rules['key'] = 'sometimes|string|max:100';

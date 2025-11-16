@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TestimonialRequest;
-use App\Models\Testimonial;
-use Illuminate\Http\Request;
+use App\Models\Testimonial;;
 
 class TestimonialController extends Controller
 {
@@ -17,7 +16,7 @@ class TestimonialController extends Controller
 
     public function store(TestimonialRequest $request)
     {
-        $testimonial = Testimonial::create($request->validate());
+        $testimonial = Testimonial::create($request->validated());
         return response()->json([
             'success' => true,
             'message' => 'Testemunho criado com sucesso.',
@@ -30,9 +29,9 @@ class TestimonialController extends Controller
         return response()->json($testimonial, 200);
     }
     
-    public function update(Request $request, Testimonial $testimonial)
+    public function update(TestimonialRequest $request, Testimonial $testimonial)
     {
-        $testimonial = Testimonial::update($request->validate());
+        $testimonial->update($request->validated());
         return response()->json([
             'success' => true,
             'message' => 'Testemunho atualizado com sucesso.',
