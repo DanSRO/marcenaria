@@ -1,0 +1,1080 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Marcenaria API",
+        "description": "Documentação da API da Marcenaria usando Laravel + Sanctum + Swagger",
+        "contact": {
+            "email": "suporte@marcenaria.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/posts": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Lista todos as postagens",
+                "operationId": "3fda362e2e082b5357ac416e7767e435",
+                "responses": {
+                    "200": {
+                        "description": "Lista de postagens"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Cria uma nova postagem",
+                "operationId": "dcb66200c3132996151884ac232cf439",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Projeto Teste"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "projeto-teste"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Conteúdo da postagem"
+                                    },
+                                    "cover_image": {
+                                        "type": "string",
+                                        "example": "Url da imagem"
+                                    },
+                                    "tags": {
+                                        "type": "string",
+                                        "example": "Tags da postagem"
+                                    },
+                                    "is_published": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Postagem criada com sucesso"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/posts/{id}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Exibe uma postagem específica",
+                "operationId": "142b5adb0520cca80cedfe09d9298332",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da postagem",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Postagem encontrada"
+                    },
+                    "404": {
+                        "description": "Postagem não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Atualiza uma postagem",
+                "operationId": "650f4bed0846d9350903d8a17c7b503a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da postagem",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Postagem Atualizada"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Novo conteúdo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Postagem atualizada com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Postagem não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Exclui uma postagem",
+                "operationId": "9d99f2e42af2f722a058a86245aa856f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da postagem",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Postagem excluída com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Postagem não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/projects": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Lista todos os projetos",
+                "operationId": "fbc21feeb3df8a2cb519efb6480ae7d9",
+                "responses": {
+                    "200": {
+                        "description": "Lista de projetos"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Cria um novo projeto",
+                "operationId": "a9d5bd5914cf75eaebafcf8b9e320dcf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Projeto Teste"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "projeto-teste"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Descrição do projeto"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Móveis"
+                                    },
+                                    "materials": {
+                                        "type": "string",
+                                        "example": "Madeira maciça"
+                                    },
+                                    "is_published": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Projeto criado com sucesso"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/projects/{id}": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Exibe um projeto específico",
+                "operationId": "865085b82af27d647cf1f2a772aa7927",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Projeto encontrado"
+                    },
+                    "404": {
+                        "description": "Projeto não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Atualiza um projeto",
+                "operationId": "fe600b7ffce78456bce67c51b9eca51d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Projeto Atualizado"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Nova descrição"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Projeto atualizado com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Projeto não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Exclui um projeto",
+                "operationId": "d81ac2b0b51fa7143c69f1a5f4c27eb0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Projeto excluído com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Projeto não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/services": {
+            "get": {
+                "tags": [
+                    "Services"
+                ],
+                "summary": "Lista todos os serviços",
+                "operationId": "97de511018def32ca0ccbc800756c538",
+                "responses": {
+                    "200": {
+                        "description": "Lista de serviços"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Services"
+                ],
+                "summary": "Cria um novo serviço",
+                "operationId": "0634f2b3ac65bd2815f4b6459f0db97c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nome do Serviço"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "example": "serviço-teste"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Descrição do serviço"
+                                    },
+                                    "icon": {
+                                        "type": "string",
+                                        "example": "Ícone"
+                                    },
+                                    "is_published": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Serviço criado com sucesso"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/services/{id}": {
+            "get": {
+                "tags": [
+                    "Services"
+                ],
+                "summary": "Exibe um serviço específico",
+                "operationId": "dce5b306a141bdec91eff8a15534d7d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do serviço",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Serviço encontrado"
+                    },
+                    "404": {
+                        "description": "Serviço não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Services"
+                ],
+                "summary": "Atualiza um serviço",
+                "operationId": "14e625e6fca9956d1143de1f41a8a228",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do serviço",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nome Atualizado"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Nova descrição"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Serviço atualizado com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Serviço não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Services"
+                ],
+                "summary": "Exclui um serviço",
+                "operationId": "9f75ff1ee1d79f882f516173057387ec",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do serviço",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Serviço excluído com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Serviço não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/settings": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Lista todas as chaves e valores",
+                "operationId": "39919ed520029d628c8b91c83fc87e06",
+                "responses": {
+                    "200": {
+                        "description": "Lista de chaves e valores"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Cria chave e valor",
+                "operationId": "5387cb89603507d0535590359d12ef1f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "slug"
+                                ],
+                                "properties": {
+                                    "key": {
+                                        "type": "string",
+                                        "example": "Chave Teste"
+                                    },
+                                    "valor": {
+                                        "type": "string",
+                                        "example": "valor-teste"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Chave/valor criado com sucesso"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/settings/{id}": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Exibe chave/valor específico",
+                "operationId": "680b5d4953236aa1630ecc00acb65579",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da setting",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Chave/valor encontrada"
+                    },
+                    "404": {
+                        "description": "Chave/valor não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Atualiza uma chave/valor",
+                "operationId": "d70d9cc5381431c301f12c536297d332",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da chave/valor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "key": {
+                                        "type": "string",
+                                        "example": "Chave Atualizada"
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "example": "Novo valor"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Chave/valor atualizada com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Chave/valor não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Exclui uma chave/valor",
+                "operationId": "3593850b3fae0c2fae848e0a55eeaaf8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da chave/valor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Chave/valor excluída com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Chave/valor não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/testimonials": {
+            "get": {
+                "tags": [
+                    "Testimonials"
+                ],
+                "summary": "Lista todos os testemunhos",
+                "operationId": "90a96033ea15e645984db8f89b6c727d",
+                "responses": {
+                    "200": {
+                        "description": "Lista de testemunhos"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Testimonials"
+                ],
+                "summary": "Cria um novo testemunho",
+                "operationId": "5a179b57e69eee5ce96406f17d491218",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "client_name"
+                                ],
+                                "properties": {
+                                    "client_name": {
+                                        "type": "string",
+                                        "example": "Nome do cliente"
+                                    },
+                                    "localidade": {
+                                        "type": "string",
+                                        "example": "localidade ou cidade"
+                                    },
+                                    "text": {
+                                        "type": "string",
+                                        "example": "Conteúdo do testemunho"
+                                    },
+                                    "rating": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "photo_url": {
+                                        "type": "string",
+                                        "example": "Endereço da imagem"
+                                    },
+                                    "is_published": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Testemunho criado com sucesso"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/testimonials/{id}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Exibe um testemunho específico",
+                "operationId": "b97e9ea05c10c0033a762beef5a7cf2c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da testemunho",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Testemunho encontrada"
+                    },
+                    "404": {
+                        "description": "Testemunho não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Testimonials"
+                ],
+                "summary": "Atualiza um testimunho",
+                "operationId": "63f0799fd923400f9abcfe055746c19d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do testemunho",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "client_name": {
+                                        "type": "string",
+                                        "example": "Nome do cliente"
+                                    },
+                                    "localization": {
+                                        "type": "string",
+                                        "example": "Cidade ou localidade"
+                                    },
+                                    "text": {
+                                        "type": "string",
+                                        "example": "Resumo da experiência"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Testemunho atualizado com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Testemunho não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Testimonials"
+                ],
+                "summary": "Exclui um testemunho",
+                "operationId": "dd074e5d0be816d801485589244a8baa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do testemunho",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Testemunho excluído com sucesso"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Testemunho não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Realiza login e retorna token",
+                "operationId": "c373bc4cffa4a56fc64e3979b8ee7b96",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "usuario@teste.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso, retorna token"
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Realiza logout e invalida o token",
+                "operationId": "5ff2dc8b48bff52908d3821a0ecc9b3e",
+                "responses": {
+                    "200": {
+                        "description": "Logout realizado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "http",
+                "description": "Use o token gerado no login como Bearer Token",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Posts",
+            "description": "Posts"
+        },
+        {
+            "name": "Projects",
+            "description": "Projects"
+        },
+        {
+            "name": "Services",
+            "description": "Services"
+        },
+        {
+            "name": "Settings",
+            "description": "Settings"
+        },
+        {
+            "name": "Testimonials",
+            "description": "Testimonials"
+        },
+        {
+            "name": "Auth",
+            "description": "Auth"
+        }
+    ]
+}

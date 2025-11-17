@@ -20,7 +20,7 @@ class TestimonialFactory extends Factory
             'client_name'  => $this->faker->name,
             'localization' => $this->faker->city,
             'text'         => $this->faker->paragraph,
-            'rating'       => $this->numberBetween(1,5),
+            'rating'       => $this->faker->numberBetween(1,5),
             'photo_url'    => $this->faker->imageUrl(600,480),
             'is_published' => true
         ];
