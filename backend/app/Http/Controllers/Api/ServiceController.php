@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceRequest;
+use App\Http\Resources\ServiceResource;
 use App\Models\Service;
 
 class ServiceController extends Controller
@@ -11,7 +12,7 @@ class ServiceController extends Controller
 
     public function index()
     {
-        return response()->json(Service::where('is_published', true)->paginate(10));
+        return ServiceResource::collection(Service::paginate(10));
     }
 
     public function store(ServiceRequest $request)
@@ -26,7 +27,7 @@ class ServiceController extends Controller
 
     public function show(Service $service)
     {
-        return response()->json($service, 200);
+        return new ServiceResource($service);
     }
 
     public function update(ServiceRequest $request, Service $service)

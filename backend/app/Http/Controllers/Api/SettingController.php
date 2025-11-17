@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingRequest;
+use App\Http\Resources\SettingResource;
 use App\Models\Setting;
 
 class SettingController extends Controller
 {
     public function index()
     {
-        return Setting::all();
+        return SettingResource::collection(Setting::paginate(10));
     }
 
     public function store(SettingRequest $request)
@@ -25,7 +26,7 @@ class SettingController extends Controller
 
     public function show(Setting $setting)
     {
-        return response()->json($setting, 200);
+        return new SettingResource($setting);
     }
     
     public function update(SettingRequest $request, Setting $setting)

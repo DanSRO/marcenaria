@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TestimonialRequest;
+use App\Http\Resources\TestimonialResource;
 use App\Models\Testimonial;;
 
 class TestimonialController extends Controller
@@ -11,7 +12,7 @@ class TestimonialController extends Controller
 
     public function index()
     {
-        return response()->json(Testimonial::where('is_published', true)->paginate(10));
+        return TestimonialResource::collection(Testimonial::paginate(10));
     }
 
     public function store(TestimonialRequest $request)
@@ -26,7 +27,7 @@ class TestimonialController extends Controller
     
     public function show(Testimonial $testimonial)
     {
-        return response()->json($testimonial, 200);
+        return new TestimonialResource($testimonial);
     }
     
     public function update(TestimonialRequest $request, Testimonial $testimonial)

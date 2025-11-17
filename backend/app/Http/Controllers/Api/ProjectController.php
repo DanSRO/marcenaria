@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\ProjectRequest;
+use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
 
     public function index()
     {
-        return response()->json(Project::where('is_published', true)->paginate(10));
+        return ProjectResource::collection(Project::paginate(10));
     }
 
     public function store(ProjectRequest $request)
@@ -26,7 +27,7 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-        return response()->json($project, 200);
+        return new ProjectResource($project);
     }
 
     public function update(ProjectRequest $request, Project $project)

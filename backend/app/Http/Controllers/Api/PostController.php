@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -11,7 +12,7 @@ class PostController extends Controller
 
     public function index()
     {
-        return response()->json(Post::where('is_published', true)->paginate(10));
+        return PostResource::collection(Post::paginate(10));
     }
 
     public function store(PostRequest $request)
@@ -26,7 +27,7 @@ class PostController extends Controller
     
     public function show(Post $post)
     {
-        return $post;
+        return new PostResource($post);
     }
     
     public function update(PostRequest $request, Post $post)
