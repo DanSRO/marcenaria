@@ -15,7 +15,7 @@ class ProjectRequest extends FormRequest
 
     public function rules(): array
     {
-        $projectId = $this->route('project')?->id ?? null;
+        $projectId = $this->project?->id;
         $rules = [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:projects',

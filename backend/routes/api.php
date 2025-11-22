@@ -17,4 +17,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('posts', PostController::class);
     Route::apiResource('settings', SettingController::class);
 });
+
+Route::options('/{any}', function () {
+    return response()->json(['status' => 'OK']);
+})->where('any', '.*');
 ?>

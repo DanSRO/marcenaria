@@ -14,7 +14,7 @@ export default function LoginPage() {
         setError("");
         try{
             await login(email, password);
-            navigate("/projects");            
+            navigate("/");            
         }catch (err: any) {
             setError("Credenciais inválidas.");
         }

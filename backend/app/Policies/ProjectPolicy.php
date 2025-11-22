@@ -20,6 +20,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project): bool
     {
+        dd($user);
         return true;
     }
     
@@ -28,7 +29,8 @@ class ProjectPolicy
      */
     public function create(User $user): bool
     {
-        return $user->is_admin;
+        dd($user);
+        return $user->is_admin === true;
     }
     
     /**
@@ -36,14 +38,16 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project): bool
     {
+        dd('Policy update chamada', $user->id, $project->id);
         return $user->is_admin;
     }
-
+    
     /**
      * Determine whether the user can delete the model.
      */
     public function delete(User $user, Project $project): bool
     {
+        dd($user);
         return $user->is_admin;
     }
 }

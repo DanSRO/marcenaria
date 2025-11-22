@@ -10,19 +10,29 @@ export const ProjectFormPage = () =>{
 
     useEffect(()=>{
         if(id){
-            api.get("/projects/${id}").then((res:any)=>setProject(res.data.data)).catch(() => setError(`Erro ao carregar projeto com ${id}.`));
+            api.get(`/projects/${id}`)
+            .then((res:any)=>setProject(res.data.data))
+            .catch(() => setError(`Erro ao carregar projeto com id ${id}.`));
         }
     },[id]);
     
     const handleSubmit = async(e:React.FormEvent) => {
         e.preventDefault();
-        if(id){
-            await api.put(`/projects/${id}`, project);
-        }else{
-            await api.post("/projects", project);
+        const payload = {
+          ...project,
+          slug: project.title.toLowerCase().replace(/\s+/g, "-"),
+        };
+        try {
+            if(id){
+                await api.put(`/projects/${id}`, payload);
+            }else{
+                await api.post('/projects', payload);
+            }
+            navigate('/projects');            
+        } catch (err) {
+            setError("Erro ao salvar projeto. ");            
         }
-        navigate("/projects");
-    }
+    };
     return(
         <form onSubmit={handleSubmit}>
             {error && <p style={{color:"red"}}>{error}</p>}

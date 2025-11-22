@@ -10,12 +10,20 @@ export const ProjectsPage = () =>{
     const {logout} = useAuth();
     const navigate = useNavigate();
     useEffect(()=>{
-        api.get("/projects").then((res:any)=>setProjects(res.data.data)).catch(() => setError("Erro ao carregar projetos."));
+        api.get('/projects').then((res:any)=>setProjects(res.data.data)).catch(() => setError("Erro ao carregar projetos."));
     },[]);    
 
+    const handleLogout = async() =>{
+        await logout();
+        navigate("/login");
+    }
     const handleDelete = async (id:number)=>{
-        await api.delete(`/projects/${id}`);
-        setProjects(projects.filter(p=>p.id !== id));
+        try{
+            await api.delete(`/projects/${id}`);
+            setProjects(projects.filter(p=>p.id !== id));
+        }catch(err){
+            setError("Erro ao excluir projeto. ");
+        }
     }
 
     return(
@@ -31,8 +39,8 @@ export const ProjectsPage = () =>{
                 ))}
             </ul>
             <div>
-                <button onClick={()=> navigate("/projects/new")}>Novo Projeto</button>
-                <button onClick={logout}>Sair</button>
+                <button onClick={()=> navigate('/projects/new')}>Novo Projeto</button>
+                <button onClick={handleLogout}>Sair</button>
             </div>
         </div>
     );
