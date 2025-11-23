@@ -32,8 +32,9 @@ export const Header = () => {
                         {token ? (
                             <button onClick={handleLogout}>Logout</button>
                         ):(
-                            // <button onClick={handleUserAuth}>Login</button>
-                            <button><Link to="/login">Login</Link></button>
+                            <li>                                
+                                <Link to="/login">Login</Link>
+                            </li>
                         )}
                     </div>
                 </ul>
