@@ -20,7 +20,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project): bool
     {
-        dd($user);
+        // dd($user);
         return true;
     }
     
@@ -29,8 +29,7 @@ class ProjectPolicy
      */
     public function create(User $user): bool
     {
-        dd($user);
-        return $user->is_admin === true;
+        return (bool) $user->is_admin;
     }
     
     /**
@@ -38,8 +37,8 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project): bool
     {
-        dd('Policy update chamada', $user->id, $project->id);
-        return $user->is_admin;
+        // dd('Policy update chamada', $user->id, $project->id);
+        return $user->is_admin || $user->id === $project->user_id;
     }
     
     /**
@@ -47,7 +46,7 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project): bool
     {
-        dd($user);
+        // dd($user);
         return $user->is_admin;
     }
 }

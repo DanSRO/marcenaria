@@ -55,8 +55,11 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
-        // $this->authorize('create', Project::class);
-        $project = Project::create($request->validated());
+        $this->authorize('create', Project::class);
+        $data = array_merge($request->validated(),[
+            'user_id'=>auth()->id()
+        ]);
+        $project = Project::create($data);
         return response()->json([
             'success' => true,
             'message' => 'Projeto criado com sucesso.',
@@ -128,7 +131,7 @@ class ProjectController extends Controller
      */
     public function update(ProjectRequest $request, Project $project)
     {
-        // $this->authorize('update', $project);
+        $this->authorize('update', $project);
         $project->update($request->validated());
         return response()->json([
             'success' => true,
@@ -166,7 +169,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        // $this->authorize('delete', $project);
+        $this->authorize('delete', $project);
         $project->delete();
         return response()->json(null, 204);
     }
