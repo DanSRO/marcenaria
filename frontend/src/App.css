@@ -40,3 +40,186 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: #000;
+  /* background-color: darkgray; */
+  color: white;
+  padding: 40px 60px;
+  font-family: sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-logo {
+  flex: 1 1 250px;
+  min-width: 250px;
+  margin-right: 20px;
+}
+
+.footer-logo p {
+  font-size: 14px;
+  margin: 10px 0 20px 20px;
+  max-width: 300px;
+}
+
+.footer-column {
+  flex: 1 1 150px;
+  min-width: 150px;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.footer-column h4 {
+  font-size: 16px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0 10px;
+  font-size: 12px;
+}
+
+hr {
+  color: #eaeaea;
+  margin-top: 40px;
+  border-color: #333;
+}
+
+ul .conteudo{
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-column ul.footer-list {
+  display: block; /* Reverte o display flex da regra global */
+  text-align: left; /* Alinha o texto à esquerda */
+  padding: 0; /* Garante que não haja padding padrão da ul */
+}
+
+.footer-column ul.footer-list li {
+  margin-bottom: 5px; /* Adiciona um pequeno espaçamento entre os itens */
+}
+
+.footer-column h4 {
+  font-size: 16px;
+  margin-bottom: 10px; /* Adiciona um espaçamento entre o título e a lista */
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-column {
+    margin-bottom: 30px;
+  }
+
+  .footer-logo {
+    margin-bottom: 30px;
+  }
+}
+
+ul.box-redes-sociais {
+  
+  display: flex;
+  flex-direction: row;
+  background: transparent;  
+  float: none;
+  margin: auto;
+
+}
+
+ul.box-redes-sociais li {
+  list-style: none;
+  margin: auto auto auto 0;
+}
+
+
+ul.box-redes-sociais li a {
+  
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  text-align: center;
+  line-height: 45px;
+  font-size: 22px;
+  margin: 0 5px;
+  display: block;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #eaeaea;
+  z-index: 1;
+
+}
+
+ul.box-redes-sociais li a .icon {
+  position: relative;
+  color: #262626;
+  transition: .3s;
+  z-index: 3;
+}
+
+ul.box-redes-sociais li a:hover .icon {
+  color: #fff;
+  scale: 1.2;
+}
+
+ul.box-redes-sociais li a:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: #f00;
+  transition: .6s;
+  z-index: 2;
+}
+
+ul.box-redes-sociais li a:hover:before {
+  top: 0;
+}
+
+ul.box-redes-sociais li.facebook a:before{
+  background: #3b5999;
+}
+
+ul.box-redes-sociais li.instagram a:before{
+  background:hsl(0 0% 10%);
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+}
+
+ul.box-redes-sociais li.twitter a:before{
+  background: #55acee;
+}
+
+ul.box-redes-sociais li.pinterest a:before {
+  background: #dc2933;
+}
+
+ul.box-redes-sociais li.youtube a:before {
+  background: #ff1d15;
+}

@@ -3,6 +3,7 @@ import type { Project } from "../types/Project";
 import api from "../api/api";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { ProjectCard } from "../components/ProjectCard";
 
 export const ProjectsPage = () =>{
     const [projects, setProjects] = useState<Project[]>([]);
@@ -27,21 +28,45 @@ export const ProjectsPage = () =>{
     }
 
     return(
-        <div>
+        <main style={{
+                // backgroundColor: "white",
+                width: "100%",
+                // padding: "2rem",
+                // margin: "0 auto",
+                // boxShadow: "0 0 5px rgba(0, 0, 0, 0.15 )",
+                boxShadow: "1px 1px 9px #F4AAB9",
+                borderRadius: "10px",
+                // color:"black",
+                color:"white",
+                
+                display: "flex",
+                flexDirection: "column",
+                maxWidth: "1240px",
+                margin: "4rem auto",
+                padding: "0 2rem",
+
+                justifyContent: "space-between",
+                alignItems: "stretch",
+                flexWrap: "wrap",
+                gap: "2rem",
+            }}>
             <h1>Projetos</h1>
             {error && <p style={{color:"red"}}>{error}</p>}
-            <ul>
-                {projects.map((p)=>(
-                    <li key={p.id}>{p.title} - {p.category}
-                    <button onClick={()=> navigate(`/projects/${p.id}/edit`)}>Editar</button>
-                    <button onClick={()=> handleDelete(p.id)}>Excluir</button>
-                    </li>
+            <ul style={{ display: "flex", listStyle: "none", gap: "1rem" }}>
+                {projects.map((p) => (
+                    <ProjectCard
+                    key={p.id}
+                    {...p}
+                    >
+                    <button onClick={() => navigate(`/projects/${p.id}/edit`)}>Editar</button>
+                    <button onClick={() => handleDelete(p.id)}>Excluir</button>
+                    </ProjectCard>
                 ))}
-            </ul>
+                </ul>
             <div>
                 <button onClick={()=> navigate('/projects/new')}>Novo Projeto</button>
                 <button onClick={handleLogout}>Sair</button>
             </div>
-        </div>
+        </main>
     );
 }
