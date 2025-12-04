@@ -24,8 +24,8 @@ export const ProjectCard = ({id, title, slug, description, category, materials, 
             textAlign:'center',
             paddingBottom:'10px'
         }}>
-            <Link to={'/detalhes-do-projeto/${id}'}>
-                <img src={`/${cover_image}`} alt={title} style={{display:'block', maxWidth:'80%', height:'321px', margin: '0 auto', objectFit:'contain'}} />
+            <Link to={`/detalhes-do-projeto/${id}`}>
+                <img src={gallery.length > 0 ? `/${gallery}` : "/projetados1.png" } alt={title} style={{display:'block', maxWidth:'80%', height:'321px', margin: '0 auto', objectFit:'contain'}} />
             </Link>
             <div style={{padding:"10px"}}>
                 <h5 style={{margin:"5px 0"}}>{title}</h5>

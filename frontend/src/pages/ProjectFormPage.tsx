@@ -9,13 +9,15 @@ interface ProjectFormState{
     description:string;
     category:string;
     materials:string;
-    cover_image:string;
-    galleryInput:string;
+    cover_image:File | null;
+    cover_image_url?:string;
+    galleryInput: File[];
+    galleryInput_url?:string[];
     is_published:boolean;
 }
 
 export const ProjectFormPage = () =>{
-    const [project, setProject] = useState<ProjectFormState>({title:"", slug:"", category:"", description:"",materials:"",cover_image:"",galleryInput:"", is_published:true});
+    const [project, setProject] = useState<ProjectFormState>({title:"", slug:"", category:"", description:"",materials:"",cover_image:null, cover_image_url:"",galleryInput:[], galleryInput_url:[], is_published:true});
     const [error, setError] = useState("");
     const {id} = useParams();
     const navigate = useNavigate();
@@ -35,9 +37,11 @@ export const ProjectFormPage = () =>{
                      description: projectData.description ?? "",
                      category: projectData.category ?? "",
                      materials: projectData.materials ?? "",
-                     cover_image: projectData.cover_image ?? "",
+                     cover_image: null,
+                     cover_image_url: projectData.cover_image ?? "",
                      // Converte o array da resposta em string para o textarea (separando por vírgula)
-                     galleryInput: Array.isArray(projectData.gallery) ? projectData.gallery.join(', ') : "",
+                     galleryInput: [],
+                     galleryInput_url: Array.isArray(projectData.gallery) ? projectData.gallery: [],
                      is_published: projectData.is_published ?? true,
                  });
             })
@@ -45,28 +49,59 @@ export const ProjectFormPage = () =>{
         }
     },[id]);
     
-    const handleSubmit = async(e:React.FormEvent) => {
+    // const handleSubmit = async(e:React.FormEvent) => {
+    //     e.preventDefault();
+    //     const galleryArray = project.galleryInput
+    //         .split(',')
+    //         .map((url: string) => url.trim())
+    //         .filter((url: string) => url.length > 0);
+    //     const payload = {
+    //       ...project,
+    //       slug: project.title.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, ''),
+    //       gallery: galleryArray,
+    //     };
+    //     try {
+    //         if(id){
+    //             await api.put(`/projects/${id}`, payload);
+    //         }else{
+    //             await api.post('/projects', payload);
+    //         }
+    //         navigate('/projects');            
+    //     } catch (err) {
+    //         setError("Erro ao salvar projeto. ");            
+    //     }
+    // };
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const galleryArray = project.galleryInput
-            .split(',')
-            .map((url: string) => url.trim())
-            .filter((url: string) => url.length > 0);
-        const payload = {
-          ...project,
-          slug: project.title.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, ''),
-          gallery: galleryArray,
-        };
-        try {
-            if(id){
-                await api.put(`/projects/${id}`, payload);
-            }else{
-                await api.post('/projects', payload);
-            }
-            navigate('/projects');            
-        } catch (err) {
-            setError("Erro ao salvar projeto. ");            
+        const formData = new FormData();
+        formData.append("title", project.title);
+        formData.append("slug", project.title.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, ''));
+        formData.append("description", project.description);
+        formData.append("category", project.category);
+        formData.append("materials", project.materials);
+        formData.append("is_published", String(project.is_published));
+      
+        if(project.cover_image instanceof File){
+          formData.append("cover_image", project.cover_image);
         }
-    };
+      
+        if(Array.isArray(project.galleryInput)){
+          project.galleryInput.forEach((file: File) => {
+            formData.append("gallery", file);
+          });
+        }
+      
+        try {
+          if(id){
+            await api.put(`/projects/${id}`, formData, { headers: { "Content-Type": "multipart/form-data" } });
+          } else {
+            await api.post("/projects", formData, { headers: { "Content-Type": "multipart/form-data" } });
+          }
+          navigate("/projects");
+        } catch (err) {
+          setError("Erro ao salvar projeto.");
+        }
+      };
     return(
         <form onSubmit={handleSubmit}>
             {error && <p style={{color:"red"}}>{error}</p>}
@@ -74,11 +109,10 @@ export const ProjectFormPage = () =>{
             <textarea value={project.description} onChange={e => setProject({ ...project, description: e.target.value })} placeholder="Descrição" />
             <input value={project.category} onChange={e => setProject({ ...project, category: e.target.value })} placeholder="Categoria" />
             <input value={project.materials} onChange={e => setProject({ ...project, materials: e.target.value })} placeholder="Materiais" />
-            <input value={project.cover_image} onChange={e => setProject({ ...project, cover_image: e.target.value })} placeholder="Imagem" />
-            <textarea 
-                value={project.galleryInput} onChange={e => setProject({ ...project, galleryInput: e.target.value })} 
-                placeholder="Álbum de imagens (separar por vírgula)" 
-            />
+            <input 
+                type="file" onChange={(e) => { const file = e.target.files?.[0]; if(file){ setProject({ ...project, cover_image: file});}}} placeholder="Imagem" />
+            <input 
+                type="file" multiple onChange={(e) => { const files = e.target.files? Array.from(e.target.files) : []; setProject({ ...project, galleryInput: files });}} placeholder="Álbum de imagens (separar por vírgula)" />
             <button type="submit">{id ? "Atualizar" : "Criar"}</button>
         </form>
     );

@@ -1,7 +1,24 @@
 import { BannerSlide } from "../components/BannerSlide";
 import { CategoryIcons } from "../components/CategoryIcons";
 import { Gallery } from "../components/Gallery";
+import api from "../api/api";
+
+import {
+    ToiletIcon as Banheiro,
+    SofaIcon as Sala,
+    CookingPot as Cozinha,
+} from "lucide-react";
+import { ProjectCard } from "../components/ProjectCard";
+import type { Project } from "../types/Project";
+import { useEffect, useState } from "react";
+
 export const HomePage = () => {
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [error, setError] = useState("");
+    
+    useEffect(()=>{
+        api.get('/projects').then((res:any)=>setProjects(res.data.data)).catch(() => setError("Erro ao carregar projetos."));
+    },[]); 
     const bannerSlides = [
         {
             src:"/projetados1.png",
@@ -46,22 +63,17 @@ export const HomePage = () => {
     const categories = [
         {
             name:"Salas",
-            icon:"ícone de salas",
+            icon:<Sala size={32} color="#FF6B9D" />,
             link:"/categoria/salas"
         },
         {
             name:"Cozinhas",
-            icon:"ícone de cozinhas",
+            icon:<Cozinha size={32} color="#7C9C7C"/>,
             link:"/categoria/cozinhas"
         },
         {
-            name:"Jantar",
-            icon:"ícone de janta",
-            link:"/categoria/jantar"
-        },
-        {
             name:"Banheiros",
-            icon:"ícone de banheiro",
+            icon:<Banheiro size={32} color="#666"/>,
             link:"/categoria/banheiros"
         }
     ]
@@ -81,6 +93,41 @@ export const HomePage = () => {
             </div>
             <div>
                 <CategoryIcons categories={categories}/>
+            </div>
+            <div>                
+                <div>
+                    <h3>Projetos em destaque</h3>
+                </div>
+                <div
+                    style={{
+                        // width: "100%",
+                        boxShadow: "1px 1px 9px #F4AAB9",
+                        borderRadius: "10px",
+                        color:"white",
+                        
+                        display: "grid",
+                        // flexDirection: "column",
+                        gridTemplateColumns:"repeat(3, 1fr)",
+                        maxWidth: "1240px",
+                        margin: "1rem",
+                        padding: "20px",
+    
+                        // justifyContent: "space-between",
+                        // alignItems: "stretch",
+                        justifyItems:"center",
+                        // flexWrap: "wrap",
+                        gap: "0.5rem",
+                    }}
+                >
+                    {error && <p style={{color:"red"}}>{error}</p>}
+                {projects.map((p) => (
+                        <ProjectCard
+                        key={p.id}
+                        {...p}
+                        >
+                        </ProjectCard>
+                    ))}
+                </div>
             </div>
         </div>
     );
