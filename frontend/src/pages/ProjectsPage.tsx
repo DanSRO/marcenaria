@@ -33,38 +33,62 @@ export const ProjectsPage = () =>{
             <h1>Projetos</h1>
             <div 
                 style={{
-                    // width: "100%",
                     boxShadow: "1px 1px 9px #F4AAB9",
                     borderRadius: "10px",
-                    color:"white",
-                    
-                    display: "grid",
-                    // flexDirection: "column",
-                    gridTemplateColumns:"repeat(4, 1fr)",
+                    color:"white",                    
+                    display: "grid",                    
+                    gridTemplateColumns:"repeat(3, 1fr)",
                     maxWidth: "1240px",
                     margin: "1rem",
                     padding: "20px",
-
-                    // justifyContent: "space-between",
-                    // alignItems: "stretch",
                     justifyItems:"center",
-                    // flexWrap: "wrap",
                     gap: "1rem",
                 }}
             >
                 {error && <p style={{color:"red"}}>{error}</p>}
-                {/* <ul style={{ display: "flex", listStyle: "none", gap: "1rem" }}> */}
                     {projects.map((p) => (
                         <ProjectCard
                         key={p.id}
                         {...p}
                         >
-                        <button onClick={() => navigate(`/projects/${p.id}/edit`)}>Editar</button>
-                        <button onClick={() => handleDelete(p.id)}>Excluir</button>
+                            <div style={{ display: "flex", listStyle: "none",alignItems:'center', justifyContent:"space-evently",margin:'10px', gap: "0.5rem" }}>
+                                <button
+                                    style={{
+                                        backgroundColor: '#2E8B57',
+                                        color: '#fff',
+                                        padding: '12px 20px',
+                                        border: 'none',
+                                        borderRadius: '5px',
+                                        cursor: 'pointer',
+                                        width: '100%',
+                                        fontSize: '1rem',
+                                        transition: 'all 0.3s ease',
+                                        boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                                        boxSizing: 'border-box',
+                                        marginBottom:'20px'
+                                    }} 
+                                    onClick={() => navigate(`/projects/${p.id}/edit`)}>Editar</button>
+                                <button 
+                                    style={{
+                                        backgroundColor: '#9c1341',
+                                        color: '#fff',
+                                        padding: '12px 20px',
+                                        border: 'none',
+                                        borderRadius: '5px',
+                                        cursor: 'pointer',
+                                        width: '100%',
+                                        fontSize: '1rem',
+                                        transition: 'all 0.3s ease',
+                                        boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                                        boxSizing: 'border-box',
+                                        marginBottom:'20px'
+                                    }} 
+                                    onClick={() => handleDelete(p.id)}>Excluir</button>
+                            </div>
                         </ProjectCard>
                     ))}
-                    {/* </ul> */}
-                <div style={{gridColumn:"span 4", textAlign:"center"}}>
+        
+                <div style={{display:'flex', gridColumn:"span 4", textAlign:"center", gap:'10px'}}>
                     <button onClick={()=> navigate('/projects/new')}>Novo Projeto</button>
                     <button onClick={handleLogout}>Sair</button>
                 </div>

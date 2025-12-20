@@ -48,29 +48,7 @@ export const ProjectFormPage = () =>{
             .catch(() => setError(`Erro ao carregar projeto com id ${id}.`));
         }
     },[id]);
-    
-    // const handleSubmit = async(e:React.FormEvent) => {
-    //     e.preventDefault();
-    //     const galleryArray = project.galleryInput
-    //         .split(',')
-    //         .map((url: string) => url.trim())
-    //         .filter((url: string) => url.length > 0);
-    //     const payload = {
-    //       ...project,
-    //       slug: project.title.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, ''),
-    //       gallery: galleryArray,
-    //     };
-    //     try {
-    //         if(id){
-    //             await api.put(`/projects/${id}`, payload);
-    //         }else{
-    //             await api.post('/projects', payload);
-    //         }
-    //         navigate('/projects');            
-    //     } catch (err) {
-    //         setError("Erro ao salvar projeto. ");            
-    //     }
-    // };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const formData = new FormData();
@@ -104,6 +82,18 @@ export const ProjectFormPage = () =>{
       };
     return(
         <form onSubmit={handleSubmit}>
+          <div style={{
+            position:'relative',
+            left:'400px',
+            display:'flex',
+            flexDirection:'column',
+            alignItems:'flex-start',
+            justifyContent:'center',
+            gap:'1rem',
+            margin:'10px',
+            boxSizing:'border-box',
+            paddingLeft:'20px'
+          }}>            
             {error && <p style={{color:"red"}}>{error}</p>}
             <input value={project.title} onChange={e => setProject({ ...project, title: e.target.value })} placeholder="Titulo" />            
             <textarea value={project.description} onChange={e => setProject({ ...project, description: e.target.value })} placeholder="Descrição" />
@@ -113,7 +103,23 @@ export const ProjectFormPage = () =>{
                 type="file" onChange={(e) => { const file = e.target.files?.[0]; if(file){ setProject({ ...project, cover_image: file});}}} placeholder="Imagem" />
             <input 
                 type="file" multiple onChange={(e) => { const files = e.target.files? Array.from(e.target.files) : []; setProject({ ...project, galleryInput: files });}} placeholder="Álbum de imagens (separar por vírgula)" />
-            <button type="submit">{id ? "Atualizar" : "Criar"}</button>
+            <button 
+              style={{
+                backgroundColor: '#2E8B57',
+                color: '#fff',
+                padding: '12px 20px',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                width: '100px',
+                fontSize: '1rem',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                boxSizing: 'border-box',
+                marginBottom:'20px'
+            }} 
+            type="submit">{id ? "Atualizar" : "Criar"}</button>
+          </div>
         </form>
     );
 }
